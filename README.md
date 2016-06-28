@@ -34,8 +34,9 @@ Siga os passos e seja feliz.
 -  Inclua na busca lateral o html:
 ```html
 <listings-autocomplete
-	query-string="{cidade2: 85,dorm:4}"
+	key="bairro"
 	remote="/api/neighborhoods"
+	query-string="{cidade2: 85,dorm:4}"
 ></listings-autocomplete>
 ```
 
