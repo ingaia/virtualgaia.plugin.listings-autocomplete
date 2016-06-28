@@ -1,0 +1,13 @@
+{
+	"maxcomplexity": 6,
+	"maxparams": 5,
+	"maxlen": 120,
+	"node": true,
+	"strict": true,
+	"jasmine": true,
+	"globals":{
+		"angular": true,
+		"Bloodhound": true
+	}
+
+}

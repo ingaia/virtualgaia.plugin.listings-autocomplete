@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Autocomplete</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/typeahead.js/dist/typeahead.jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/typeahead.js/dist/bloodhound.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-typeahead/angular-typeahead.min.js"></script>
+		<script type="text/javascript" src="dist/listings.autocomplete.min.js"></script>
+	</head>
+	<body ng-app="virtualgaia">
+		<div class="container">
+
+			<form action="">
+				<div class="form-group">
+					<label>Encontre a cidade</label>
+					<listings-autocomplete key="cidade2" remote="http://docker:8765/cities" destination="http://secovi.gaiasite.com.br"></listings-autocomplete>
+				</div>
+				<hr>
+				<hr>
+				<hr>
+				<hr>
+				<hr>
+				<hr>
+				<hr>
+				<hr>
+				<div class="form-group">
+					<label>Encontre o bairro</label>
+					<listings-autocomplete query-string="{cidade2: 85,dorm:4}" key="bairro" remote="http://docker:8765/neighborhoods" destination="http://secovi.gaiasite.com.br"></listings-autocomplete>
+				</div>
+
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+	</script>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "virtualgaia.plugin.listings-autocomplete",
+  "version": "1.0.0",
+  "authors": [
+    "jesse1983 <jesse.pinheiro@i-value.com.br>"
+  ],
+  "description": "Busca livre para sites usando VirtualGaia",
+  "main": "js/free-search.directive.js",
+  "keywords": [
+    "virtualgaia"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ingaia/virtualgaia.plugin.listings-autocomplete",
+  "dependencies": {
+    "angular": "> 1.5 < 2.0",
+    "jquery": ">1.11.1",
+    "angular-typeahead": "^0.3.1"
+  }
+}
