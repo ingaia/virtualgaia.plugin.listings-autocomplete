@@ -43,8 +43,8 @@ Siga os passos e seja feliz.
 ## Atributos
 A tag `<listings-autocomplete>` suporta os atributos:
 
-- **key(*string)**:  chave da query string. Ex: `cidade2`. Default: `null`
-- **remote(*string)**: endpoint de consulta da API. Ex: `/api/cities`. Default: `null`
-- **query-string(object)**: query string em formato de objeto JS. Ex: `{cidade2: 85,dorm:3}`. Default: `{}`
-- **destination(string)**: URL destino. Ex: `listagem.aspx`. Default: `""`
-- **css(string)**: Classe css. Ex: `listagem.aspx`. Default: `form-control`
+- **key (*string)**:  chave da query string. Ex: `cidade2`. Default: `null`
+- **remote (*string)**: endpoint de consulta da API. Ex: `/api/cities`. Default: `null`
+- **query-string (object)**: query string em formato de objeto JS. Ex: `{cidade2: 85,dorm:3}`. Default: `{}`
+- **destination (string)**: URL destino. Ex: `listagem.aspx`. Default: `""`
+- **css (string)**: Classe css. Ex: `listagem.aspx`. Default: `form-control`
