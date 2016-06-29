@@ -1,3 +1,4 @@
+/* globals angular: true, Bloodhound: true */
 'use strict';
 var controller = function($scope){
 	this.key = this.key;
@@ -5,8 +6,16 @@ var controller = function($scope){
 	this.options = this.options || {highlight: true};
 	this.queryString = this.queryString || {};
 	this.destination = this.destination || "";
+	this.onInit = this.onInit || function(){ return true; };
+	this.onSearch = this.onSearch || function(){ return true; };
+	this.placeholder = this.placeholder || "Digite para buscar";
 	this.css = this.css || "form-control";
+	this.useIcon = (this.useIcon === undefined) ? true : this.useIcon;
+	this.iconCss = this.iconCss || "fa fa-search";
 
+
+	// Run Init
+	if(typeof(this.onInit) === "function") this.onInit();
 	$scope.$watch('vm.query',(newvalue)=>{
 		if(newvalue){
 			if(newvalue.id){
@@ -52,6 +61,8 @@ var controller = function($scope){
 	  				title: response.data[i].title + " (" + thousandSeparator(response.data[i].count) + ")"
 	  			});
 	  		}
+	  		if(body.length === 0) body.push({id: null,title: "Nenhum resultado encontrado"});
+	  		if(typeof(this.onSearch) === "function") this.onSearch(body);
 	  		return(body);
 	  	}
 	  }
@@ -72,14 +83,18 @@ angular.module(myModule, ['siyfion.sfTypeahead']);
 angular.module(myModule).component('listingsAutocomplete',{
   template: `
   	<style type="text/css">.twitter-typeahead{ width: 100%; display: block }</style>
-  	<input
-  		type="text"
-  		class="{{vm.css}}"
-  		datasets="vm.dataset"
-  		options="vm.options"
-  		ng-model="vm.query"
-  		sf-typeahead
-  	/>
+  	<div class="form-group has-feedback">
+	  	<input
+	  		type="text"
+	  		placeholder="{{vm.placeholder}}"
+	  		class="{{vm.css}}"
+	  		datasets="vm.dataset"
+	  		options="vm.options"
+	  		ng-model="vm.query"
+	  		sf-typeahead
+	  	/>
+	  	<i class="{{vm.iconCss}} form-control-feedback" ng-if="vm.useIcon"></i>
+  	</div>
   `,
   controller: controller,
   controllerAs: "vm",
@@ -89,7 +104,13 @@ angular.module(myModule).component('listingsAutocomplete',{
   	options: "=?",
   	queryString: "=?",
   	destination: "@?",
-  	css: "@?"
+  	placeholder: "@?",
+  	onInit: "=?",
+	onSearch: "=?",
+  	css: "@?",
+  	useIcon: "=?",
+  	iconCss: "@?",
+
   }
 });
 

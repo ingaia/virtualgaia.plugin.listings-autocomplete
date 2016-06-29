@@ -1,3 +1,4 @@
+/* globals angular: true, Bloodhound: true */
 'use strict';
 
 var controller = function controller($scope) {
@@ -8,8 +9,19 @@ var controller = function controller($scope) {
 	this.options = this.options || { highlight: true };
 	this.queryString = this.queryString || {};
 	this.destination = this.destination || "";
+	this.onInit = this.onInit || function () {
+		return true;
+	};
+	this.onSearch = this.onSearch || function () {
+		return true;
+	};
+	this.placeholder = this.placeholder || "Digite para buscar";
 	this.css = this.css || "form-control";
+	this.useIcon = this.useIcon === undefined ? true : this.useIcon;
+	this.iconCss = this.iconCss || "fa fa-search";
 
+	// Run Init
+	if (typeof this.onInit === "function") this.onInit();
 	$scope.$watch('vm.query', function (newvalue) {
 		if (newvalue) {
 			if (newvalue.id) {
@@ -59,6 +71,8 @@ var controller = function controller($scope) {
 						title: response.data[i].title + " (" + thousandSeparator(response.data[i].count) + ")"
 					});
 				}
+				if (body.length === 0) body.push({ id: null, title: "Nenhum resultado encontrado" });
+				if (typeof _this.onSearch === "function") _this.onSearch(body);
 				return body;
 			}
 		}
@@ -76,7 +90,7 @@ controller.$inject = ['$scope'];
 var myModule = 'virtualgaia.plugin.listings-autocomplete';
 angular.module(myModule, ['siyfion.sfTypeahead']);
 angular.module(myModule).component('listingsAutocomplete', {
-	template: "\n  \t<style type=\"text/css\">.twitter-typeahead{ width: 100%; display: block }</style>\n  \t<input\n  \t\ttype=\"text\"\n  \t\tclass=\"{{vm.css}}\"\n  \t\tdatasets=\"vm.dataset\"\n  \t\toptions=\"vm.options\"\n  \t\tng-model=\"vm.query\"\n  \t\tsf-typeahead\n  \t/>\n  ",
+	template: "\n  \t<style type=\"text/css\">.twitter-typeahead{ width: 100%; display: block }</style>\n  \t<div class=\"form-group has-feedback\">\n\t  \t<input\n\t  \t\ttype=\"text\"\n\t  \t\tplaceholder=\"{{vm.placeholder}}\"\n\t  \t\tclass=\"{{vm.css}}\"\n\t  \t\tdatasets=\"vm.dataset\"\n\t  \t\toptions=\"vm.options\"\n\t  \t\tng-model=\"vm.query\"\n\t  \t\tsf-typeahead\n\t  \t/>\n\t  \t<i class=\"{{vm.iconCss}} form-control-feedback\" ng-if=\"vm.useIcon\"></i>\n  \t</div>\n  ",
 	controller: controller,
 	controllerAs: "vm",
 	bindings: {
@@ -85,7 +99,13 @@ angular.module(myModule).component('listingsAutocomplete', {
 		options: "=?",
 		queryString: "=?",
 		destination: "@?",
-		css: "@?"
+		placeholder: "@?",
+		onInit: "=?",
+		onSearch: "=?",
+		css: "@?",
+		useIcon: "=?",
+		iconCss: "@?"
+
 	}
 });
 
